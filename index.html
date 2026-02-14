@@ -1,0 +1,708 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>我们的情人节 ⚾💙</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', 'Microsoft YaHei', sans-serif;
+            background: linear-gradient(135deg, #4A90E2 0%, #E91E63 100%);
+            min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* 多啦A梦和棒球飘落动画 */
+        .float-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .float-item {
+            position: absolute;
+            animation: float linear infinite;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(-10vh) rotate(0deg);
+                opacity: 0.8;
+            }
+            100% {
+                transform: translateY(110vh) rotate(360deg);
+                opacity: 0.2;
+            }
+        }
+
+        /* 多啦A梦装饰 */
+        .doraemon-corner {
+            position: fixed;
+            font-size: 80px;
+            z-index: 10;
+            animation: bounce 2s ease-in-out infinite;
+        }
+
+        .doraemon-left {
+            top: 20px;
+            left: 20px;
+        }
+
+        .doraemon-right {
+            bottom: 100px;
+            right: 20px;
+        }
+
+        @keyframes bounce {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-20px);
+            }
+        }
+
+        /* 棒球装饰 */
+        .baseball-deco {
+            position: fixed;
+            font-size: 60px;
+            animation: spin 3s linear infinite;
+        }
+
+        .baseball-top {
+            top: 50px;
+            right: 100px;
+        }
+
+        .baseball-bottom {
+            bottom: 50px;
+            left: 100px;
+        }
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg) scale(1);
+            }
+            50% {
+                transform: rotate(180deg) scale(1.2);
+            }
+            100% {
+                transform: rotate(360deg) scale(1);
+            }
+        }
+
+        /* 主容器 */
+        .container {
+            position: relative;
+            z-index: 2;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 40px 20px;
+            text-align: center;
+        }
+
+        /* 标题部分 */
+        .header {
+            margin-bottom: 40px;
+            animation: fadeInDown 1s ease-out;
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(10px);
+            padding: 30px;
+            border-radius: 20px;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .header h1 {
+            color: white;
+            font-size: 3em;
+            margin-bottom: 15px;
+            text-shadow: 3px 3px 6px rgba(0,0,0,0.4);
+            font-weight: bold;
+        }
+
+        .header p {
+            color: #FFE4E1;
+            font-size: 1.3em;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .doraemon-quote {
+            background: rgba(41, 128, 185, 0.9);
+            color: white;
+            padding: 15px 25px;
+            border-radius: 15px;
+            margin-top: 20px;
+            font-size: 1.1em;
+            border: 3px solid #fff;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        }
+
+        /* 卡片样式 */
+        .card {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 25px;
+            padding: 40px;
+            margin-bottom: 30px;
+            box-shadow: 0 15px 50px rgba(0,0,0,0.3);
+            animation: fadeInUp 1s ease-out;
+            transition: transform 0.3s ease;
+            border: 3px solid rgba(255, 255, 255, 0.5);
+        }
+
+        .card:hover {
+            transform: translateY(-8px);
+        }
+
+        /* 特殊主题卡片 */
+        .doraemon-card {
+            background: linear-gradient(135deg, #4A90E2 0%, #5DADE2 100%);
+            color: white;
+        }
+
+        .baseball-card {
+            background: linear-gradient(135deg, #F39C12 0%, #E74C3C 100%);
+            color: white;
+        }
+
+        /* 大爱心 */
+        .big-heart {
+            font-size: 100px;
+            color: #ff1744;
+            animation: heartbeat 1.5s ease-in-out infinite;
+            display: inline-block;
+            margin: 20px 0;
+        }
+
+        @keyframes heartbeat {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.15);
+            }
+        }
+
+        /* 爱的宣言 */
+        .love-message {
+            color: #333;
+            font-size: 1.2em;
+            line-height: 1.9;
+            margin: 20px 0;
+        }
+
+        
+        
+
+        /* 计时器 */
+        .counter {
+            background: linear-gradient(135deg, #FF6B9D 0%, #C06C84 100%);
+            color: white;
+            padding: 35px;
+            border-radius: 20px;
+            margin: 30px 0;
+            border: 3px solid rgba(255, 255, 255, 0.5);
+        }
+
+        .counter h3 {
+            font-size: 1.6em;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .counter .time {
+            font-size: 3em;
+            font-weight: bold;
+            text-shadow: 3px 3px 6px rgba(0,0,0,0.4);
+        }
+
+        /* 按钮 */
+        .love-button {
+            background: linear-gradient(135deg, #E74C3C 0%, #C0392B 100%);
+            color: white;
+            border: 3px solid white;
+            padding: 15px 40px;
+            font-size: 1.2em;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+            margin: 15px 10px;
+            font-weight: bold;
+        }
+
+        .love-button:hover {
+            transform: scale(1.1) rotate(-3deg);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+        }
+
+        .doraemon-button {
+            background: linear-gradient(135deg, #3498DB 0%, #2980B9 100%);
+        }
+
+        .baseball-button {
+            background: linear-gradient(135deg, #F39C12 0%, #D68910 100%);
+        }
+
+        /* 弹出消息 */
+        .popup {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0);
+            background: white;
+            padding: 40px;
+            border-radius: 25px;
+            box-shadow: 0 15px 50px rgba(0,0,0,0.4);
+            z-index: 2000;
+            transition: transform 0.4s ease;
+            max-width: 90%;
+            border: 5px solid #4A90E2;
+        }
+
+        .popup.show {
+            transform: translate(-50%, -50%) scale(1);
+        }
+
+        .popup h2 {
+            color: #E91E63;
+            margin-bottom: 20px;
+            font-size: 2em;
+        }
+
+        .popup-message {
+            font-size: 1.3em;
+            color: #333;
+            line-height: 1.8;
+            margin: 20px 0;
+        }
+
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.75);
+            z-index: 1999;
+            display: none;
+        }
+
+        .overlay.show {
+            display: block;
+        }
+
+        /* 图片弹窗样式 */
+        .image-popup {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0);
+            background: white;
+            padding: 30px;
+            border-radius: 25px;
+            box-shadow: 0 15px 50px rgba(0,0,0,0.4);
+            z-index: 2001;
+            transition: transform 0.4s ease;
+            max-width: 90%;
+            max-height: 90vh;
+            overflow-y: auto;
+            border: 5px solid #4A90E2;
+        }
+
+        .image-popup.show {
+            transform: translate(-50%, -50%) scale(1);
+        }
+
+        .image-popup img {
+            width: 100%;
+            max-width: 500px;
+            height: auto;
+            border-radius: 15px;
+            margin: 20px 0;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+        }
+
+        .image-popup h2 {
+            color: #E91E63;
+            margin-bottom: 15px;
+            font-size: 1.8em;
+        }
+
+        .image-popup p {
+            color: #333;
+            font-size: 1.2em;
+            line-height: 1.8;
+            margin: 15px 0;
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: #E91E63;
+            color: white;
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            font-size: 1.5em;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .close-btn:hover {
+            background: #C2185B;
+            transform: rotate(90deg);
+        }
+
+        
+        /* 动画 */
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* 响应式设计 */
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2.2em;
+            }
+            
+            .card {
+                padding: 25px;
+            }
+            
+            .big-heart {
+                font-size: 70px;
+            }
+            
+            .counter .time {
+                font-size: 2em;
+            }
+
+            .doraemon-corner {
+                font-size: 50px;
+            }
+
+            .baseball-deco {
+                font-size: 40px;
+            }
+
+            .photo-item img {
+                height: 250px;
+            }
+        }
+
+        /* 特殊装饰文字 */
+        .special-title {
+            background: linear-gradient(45deg, #FF6B9D, #4A90E2, #F39C12);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-size: 2em;
+            font-weight: bold;
+            margin: 20px 0;
+        }
+    </style>
+</head>
+<body>
+    <!-- 多啦A梦装饰 -->
+    <div class="doraemon-corner doraemon-left">🥎</div>
+    <div class="doraemon-corner doraemon-right">💙</div>
+    
+    <!-- 棒球装饰 -->
+    <div class="baseball-deco baseball-top">⚾</div>
+    <div class="baseball-deco baseball-bottom">🧢</div>
+
+    <!-- 飘落元素 -->
+    <div class="float-container" id="floatContainer"></div>
+
+    <!-- 主容器 -->
+    <div class="container">
+        <!-- 标题区 -->
+        <div class="header">
+            <h1>⚾ 我们的情人节 💙</h1>
+            <p>Happy Valentine's Day 2026</p>
+            <div class="doraemon-quote">
+                "只要有你在，每一天都充满奇迹" - 致我最爱的你
+            </div>
+        </div>
+
+        <!-- 主爱心卡片 -->
+        <div class="card">
+            <div class="big-heart">❤️</div>
+            <h2 style="color: #E91E63; margin: 20px 0;">致我最特别的你</h2>
+            <div class="love-message">
+                <!-- 👇 在这里修改你想说的话 -->
+                <p>就像多啦A梦的百宝袋，</p>
+                <p>你给我的每一天都是惊喜（比如每天晚上的天气都不一样，有时候刮风有时候雷阵雨）</p>
+                <p><strong>遇见你，是我最美好的事</strong></p>
+                <p>一起看棒球赛，一起做梦</p>
+                <p>愿我们的爱情如同本垒打般精彩✨</p>
+                <!-- 👆 在这里修改你想说的话 -->
+            </div>
+        </div>
+
+        <!-- 计时器卡片 -->
+        <div class="card doraemon-card">
+            <div class="counter" style="background: rgba(255,255,255,0.2); border: 3px solid white;">
+                <h3>⚾💙 我们在一起的日子</h3>
+                <h3>451天了！</h3>
+                
+                <p style="margin-top: 15px; font-size: 1.1em;">
+                    "每一天都是全垒打！"
+                </p>
+            </div>
+        </div>
+
+        
+        <!-- 多啦A梦主题卡片 -->
+        <div class="card doraemon-card">
+            <h2 style="margin-bottom: 20px; font-size: 2em;">🤖 多啦A梦的祝福</h2>
+            <div class="love-message" style="color: white;">
+                <p>如果我有多啦A梦的时光机，</p>
+                <p>我想回到遇见你的那一刻，</p>
+                <p>再体验一次心动的感觉</p>
+                <p><strong>然后告诉过去的自己：</strong></p>
+                <p>"好好珍惜这个人，她/他会是你最好的未来" 💙</p>
+            </div>
+        </div>
+
+        <!-- 棒球主题卡片 -->
+        <div class="card baseball-card">
+            <h2 style="margin-bottom: 20px; font-size: 2em;">⚾ 我们的爱情棒球场</h2>
+            <div class="love-message" style="color: white;">
+                <p>你是我生命中的MVP</p>
+                <p>和你在一起的每一天</p>
+                <p>都像打出了一记完美的全垒打（其实并不，有时候像三振）</p>
+                <p><strong>让我们一起冲向本垒！</strong> 🏆</p>
+            </div>
+        </div>
+
+        <!-- 互动按钮 -->
+        <div class="card">
+            <h2 style="color: #E91E63; margin-bottom: 25px; font-size: 1.8em;">💌 给你的惊喜</h2>
+            <button class="love-button" onclick="showMessage()">💝 打开爱的留言</button>
+            <button class="love-button doraemon-button" onclick="showDoraemonQuote()">🤖 多啦A梦的话</button>
+            <button class="love-button baseball-button" onclick="showBaseballLove()">⚾ 棒球情话</button>
+            <button class="love-button" onclick="showImageMessage()">📷 特别的照片</button>
+        </div>
+    </div>
+
+    
+    <!-- 弹出层 -->
+    <div class="overlay" id="overlay" onclick="closePopup()"></div>
+    <div class="popup" id="popup">
+        <h2 id="popupTitle">💝 特别的话</h2>
+        <div class="popup-message" id="popupMessage"></div>
+        <button class="love-button" onclick="closePopup()">收到啦 ❤️</button>
+    </div>
+
+    <!-- 图片弹窗 -->
+    <div class="image-popup" id="imagePopup">
+        <button class="close-btn" onclick="closeImagePopup()">×</button>
+        <h2 id="imagePopupTitle">💕 给你看个宝贝</h2>
+        <img id="imagePopupImg" src="" alt="特别的照片">
+        <p id="imagePopupText"></p>
+    </div>
+
+    <script>
+        // 照片数据（使用本地路径 - 上传到服务器后需要替换）
+        const photos = [
+            {
+                src: 'IMG_9363.jpeg',
+                caption: '温馨时光 💕'
+            },
+            {
+                src: 'IMG_5545.jpeg',
+                caption: '迪士尼'
+            },
+            {
+                src: 'IMG_3612.jpeg',
+                caption: '甜蜜拥抱 🤗'
+            }
+        ];
+
+        // 👇 图片弹窗的数据（可以修改）
+        const imageMessages = [
+            {
+                img: 'IMG_9363.jpeg',
+                title: '💕 温馨时光',
+                text: '这是我最喜欢的一张照片<br>每次看到都会忍不住微笑<br><strong>因为照片里有你 ❤️</strong>'
+            },
+            {
+                img: 'IMG_5545.jpeg',
+                title: '🎉 迪士尼快乐瞬间',
+                text: '和你在一起的每一刻都充满欢笑<br>这些美好的回忆<br><strong>是我最珍贵的宝藏 💎</strong>'
+            },
+            {
+                img: 'IMG_3612.jpeg',
+                title: '🤗 甜蜜拥抱',
+                text: '虽然那个俱乐部坏，但是这个照片挺好'
+            },
+            {
+                img: '3.jpeg',
+                title: '你看这是啥',
+                text: '感觉就是被这个小作文骗了。你那个时候最温柔。现在说不出这个话了'
+            }
+        ];
+        // 👆 图片弹窗的数据（可以修改）
+
+        // 加载照片
+        function loadPhotos() {
+            const gallery = document.getElementById('photoGallery');
+            photos.forEach(photo => {
+                const photoDiv = document.createElement('div');
+                photoDiv.className = 'photo-item';
+                photoDiv.innerHTML = `
+                    <img src="${photo.src}" alt="${photo.caption}">
+                    <div class="photo-caption">${photo.caption}</div>
+                `;
+                gallery.appendChild(photoDiv);
+            });
+        }
+
+        // 创建飘落元素
+        function createFloatingItems() {
+            const container = document.getElementById('floatContainer');
+            const items = ['🔔', '💙', '⚾', '🧢', '🥎', '💕', '⭐'];
+            
+            for (let i = 0; i < 25; i++) {
+                const item = document.createElement('div');
+                item.className = 'float-item';
+                item.innerHTML = items[Math.floor(Math.random() * items.length)];
+                item.style.left = Math.random() * 100 + '%';
+                item.style.fontSize = (Math.random() * 25 + 20) + 'px';
+                item.style.animationDuration = (Math.random() * 4 + 6) + 's';
+                item.style.animationDelay = Math.random() * 5 + 's';
+                container.appendChild(item);
+            }
+        }
+
+        // 计算在一起的天数
+        function updateDaysCounter() {
+            // 👇 修改这里的日期为你们在一起的日期（格式：YYYY-MM-DD）
+            const startDate = new Date('2024-11-20');
+            // 👆 修改这里的日期为你们在一起的日期
+            const today = new Date();
+            const diffTime = Math.abs(today - startDate);
+            const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+            document.getElementById('daysCounter').textContent = diffDays;
+        }
+
+        // 显示爱的留言
+        function showMessage() {
+            // 👇 在这里添加或修改你想说的惊喜话语
+            const messages = [
+                '你是我生命中最美的遇见 💖',
+                '每一天都想和你在一起 🌹',
+                '你的笑容是我最大的幸福 😊',
+                '谢谢你一直陪在我身边 💕',
+                '我爱你，不止今天，是每一天 ❤️',
+                '有你的日子，都是情人节 💝',
+                '你是我心中永远的MVP 🏆',
+                '和你在一起，每天都是全垒打 ⚾'
+            ];
+            // 👆 在这里添加或修改你想说的惊喜话语
+            const randomMessage = messages[Math.floor(Math.random() * messages.length)];
+            document.getElementById('popupTitle').textContent = '💝 我想对你说';
+            document.getElementById('popupMessage').innerHTML = randomMessage;
+            document.getElementById('overlay').classList.add('show');
+            document.getElementById('popup').classList.add('show');
+        }
+
+        // 显示多啦A梦语录
+        function showDoraemonQuote() {
+            const quotes = [
+                'Hugo小多啦',
+                '你就是我的任意门<br>无论何时何地，都想和你在一起 🚪',
+                '就像大雄需要多啦A梦<br>我也需要你在我身边 🤖'
+            ];
+            const randomQuote = quotes[Math.floor(Math.random() * quotes.length)];
+            document.getElementById('popupTitle').textContent = '🤖 多啦A梦说...';
+            document.getElementById('popupMessage').innerHTML = randomQuote;
+            document.getElementById('overlay').classList.add('show');
+            document.getElementById('popup').classList.add('show');
+        }
+
+        // 显示棒球情话
+        function showBaseballLove() {
+            const baseballLove = [
+                '你是我的主力投手<br>每一天都投出我心中的好球 ⚾',
+                '和你在一起<br>人生就是一场精彩的比赛 🏆',
+                '你是我的本垒<br>无论跑多远，都想回到你身边 🏃（有时候可能不是）',
+                '我们的爱情<br>就像完美的全垒打 💪',
+                '你是我的MVP<br>Most Valuable Person in my life 🌟',
+                '让我们一起<br>在爱情的球场上赢得胜利 🎯'
+            ];
+            const randomLove = baseballLove[Math.floor(Math.random() * baseballLove.length)];
+            document.getElementById('popupTitle').textContent = '⚾ 棒球情话';
+            document.getElementById('popupMessage').innerHTML = randomLove;
+            document.getElementById('overlay').classList.add('show');
+            document.getElementById('popup').classList.add('show');
+        }
+
+        // 显示图片弹窗（随机）
+        function showImageMessage() {
+            const randomIndex = Math.floor(Math.random() * imageMessages.length);
+            const message = imageMessages[randomIndex];
+            
+            document.getElementById('imagePopupTitle').innerHTML = message.title;
+            document.getElementById('imagePopupImg').src = message.img;
+            document.getElementById('imagePopupText').innerHTML = message.text;
+            
+            document.getElementById('overlay').classList.add('show');
+            document.getElementById('imagePopup').classList.add('show');
+        }
+
+        // 关闭图片弹窗
+        function closeImagePopup() {
+            document.getElementById('overlay').classList.remove('show');
+            document.getElementById('imagePopup').classList.remove('show');
+        }
+
+        // 关闭普通弹出层
+        function closePopup() {
+            document.getElementById('overlay').classList.remove('show');
+            document.getElementById('popup').classList.remove('show');
+        }
+
+        
+
+        // 页面加载时执行
+        window.onload = function() {
+            loadPhotos();
+            createFloatingItems();
+            updateDaysCounter();
+        };
+    </script>
+</body>
+</html>
